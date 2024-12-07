@@ -68,6 +68,38 @@ exports.post = async (post) => {
 
 }
 
+exports.test = async () => {
+
+    return new Promise(async (resolve) => {
+
+        logger.log(`TESTING MODE`);
+
+        try {
+
+            await turnOnTheBrowser();
+            await common.sleep(999);
+
+        } catch (err) {
+
+            logger.logError(err);
+
+        }
+
+        try {
+
+            await browserHelper.exitBrowser(browser, page);
+
+        }catch(err){
+
+        }
+
+        resolve();
+        return;
+
+    });
+
+}
+
 async function openPostSubmitPage(subreddit) {
 
     return new Promise(async (resolve, reject) => {

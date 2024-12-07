@@ -1,17 +1,27 @@
+const fs = require('fs');
 const bot = require('./classes/Bot.js');
 const common = require('./classes/Common.js');
 const scheduler = require('./classes/Scheduler.js');
 const logger = require('./classes/Logger.js');
 const sproutgigs = require('./classes/Sproutgigs.js');
+const env = JSON.parse(fs.readFileSync('./env.json'));
 
 (async () => {
 
-    while (true) {
+    if (env.testMode) {
 
-        await post();
-        await promote();
+        await test();
 
-        await common.sleep(60);
+    } else {
+
+        while (true) {
+
+            await post();
+            await promote();
+
+            await common.sleep(60);
+
+        }
 
     }
 
@@ -69,6 +79,19 @@ async function promote() {
             }
 
         }
+
+        resolve();
+        return;
+
+    });
+
+}
+
+async function test() {
+
+    return new Promise(async (resolve, reject) => {
+
+        await bot.test();
 
         resolve();
         return;
