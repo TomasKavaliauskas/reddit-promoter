@@ -22,3 +22,6 @@ Instructions:
     10.3) `link` - link to redgifs
     10.4) `post_at` - when post should be made. Format is important, must be like in the example
     10.5) `upvotes` - how many upvotes to buy on sproutgigs, if 0 ir missing - no promotion. If you decide to boost it, then keep in mind that value cannot be lower than 25.
+
+11) To run the bot - `node index.js` and just keep your PC on.
+12) Logs are being saved in `logs` folder, they will also be outputed to your just in case.
