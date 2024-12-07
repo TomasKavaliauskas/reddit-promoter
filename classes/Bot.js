@@ -137,9 +137,16 @@ async function submitPost(post) {
                 page.waitForNavigation(NAVIGATION_OPTIONS)
             ]);
 
+            let iterations = 0;
+
             while(page.url().includes(`https://www.reddit.com/r/${post.subreddit}/submit/?type=LINK`))
             {
 
+                if(iterations++ > 60)
+                {
+                    logger.log("SOMETHING IS WRONG, CANNOT SUBMIT A POST. EXITING...");
+                    process.exit();
+                }
                 await common.sleep(1);
 
             }
