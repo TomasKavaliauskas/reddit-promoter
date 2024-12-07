@@ -10,13 +10,13 @@ Instructions:
 8) Schedule posts in `posts.json` , an example is left there. Add as many posts as you like.
 9) In `env.json` settings are saved:
 
-   9.1) testMode - true / false . If true - it will just open a browser and do nothing. Purpose of it is to make sure your proxy is working fine, you can check if it works.
+   9.1) `testMode` - true / false . If true - it will just open a browser and do nothing. Purpose of it is to make sure your proxy is working fine, you can check if it works.
 
-   9.2) proxy - proxy credentials. I would sugges you to buy a static residential proxy for this, or you can try set it to `null`.
+   9.2) `proxy` - proxy credentials. I would sugges you to buy a static residential proxy for this, or you can try set it to `null` and use your VPN (Should work on paper, set `testMode` to `true` to make sure).
 
-   9.3) showActualBrowser - true / false. If true - it will open up a browser everytime posting. It should be left on true unless bot works really well and can be set to false later on.
+   9.3) `showActualBrowser` - true / false. If true - it will open up a browser everytime posting. It should be left on true unless bot works really well and can be set to false later on.
 
-   9.4) sproutgigsApiKey - I made an automatic promotion too. I will give you a key later, so you can promote the posts yourself through API.
+   9.4) `sproutgigsApiKey` - I made an automatic promotion too. I will give you a key later, so you can promote the posts yourself through API.
 
 10) In `posts.json` scheduler you need to put this info about each post:
 
