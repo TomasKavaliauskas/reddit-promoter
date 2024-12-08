@@ -35,7 +35,7 @@ exports.post = async (post) => {
 
                 logger.log("ACCOUNT IS DISCONNECTED. RECONNECT AND TRY AGAIN");
                 resolve({
-                    sucess: false,
+                    success: false,
                     reason: "disconnected"
                 });
                 return;
