@@ -28,7 +28,7 @@ exports.postJob = async function (post) {
                 url: 'https://sproutgigs.com/api/jobs/post-job.php',
                 headers: {
                     'Host': 'sproutgigs.com',
-                    'Authorization': `Basic ${Buffer.from(`947388cf:${env.sproutgigsApiKey}`).toString('base64')}`,
+                    'Authorization': `Basic ${Buffer.from(`${env.sproutgigsUserId}:${env.sproutgigsApiKey}`).toString('base64')}`,
                     'Content-Type': 'application/json'
                 },
                 data: {
