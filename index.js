@@ -20,6 +20,7 @@ let postMade = false;
             await promote();
             if(postMade)
             {
+                logger.log("SLEEPING FOR 5 MINUTES");
                 sleepInSeconds = 300;
                 postMade = false;
             }
