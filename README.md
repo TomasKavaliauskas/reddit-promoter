@@ -22,7 +22,7 @@ Instructions:
 
     10.1) `subreddit` - subreddit of the post, need to put just what is after `reddit.com/r/` like `piercedNSFW`
 
-    10.2) `titles` - all the titles you can come up with. The more the better
+    10.2) `titles` - all the titles you can come up with
 
     10.3) `links` - links to redgifs
 
