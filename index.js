@@ -6,23 +6,25 @@ const logger = require('./classes/Logger.js');
 const sproutgigs = require('./classes/Sproutgigs.js');
 const env = JSON.parse(fs.readFileSync('./env.json'));
 
+let postMade = false;
+
 (async () => {
 
+    let sleepInSeconds = 60;
+
     if (env.testMode) {
-
         await test();
-
     } else {
-
         while (true) {
-
             await post();
             await promote();
-
-            await common.sleep(60);
-
+            if(postMade)
+            {
+                sleepInSeconds = 300;
+                postMade = false;
+            }
+            await common.sleep(sleepInSeconds);
         }
-
     }
 
 })();
@@ -34,20 +36,14 @@ async function post() {
         let post = scheduler.getPost();
 
         if (post) {
-
             let response = await bot.post(post);
-
             if (response.success) {
-
-                logger.log(`POSTED! POST LINK : ${response.postUrl}`);
-                scheduler.posted(post, response.postUrl);
-
+                logger.log(`POSTED! POST LINK : ${response.post.post_link}`);
+                scheduler.posted(post);
+                postMade = true;
             } else {
-
                 process.exit();
-
             }
-
         }
 
         resolve();
@@ -64,20 +60,13 @@ async function promote() {
         let post = scheduler.getPostToPromote();
 
         if (post) {
-
             let response = await sproutgigs.postJob(post);
-
             if (response.success) {
-
                 logger.log(`PROMOTED! JOB ID : ${response.jobId}`);
                 scheduler.promoted(post, response.jobId);
-
             } else {
-
                 process.exit();
-
             }
-
         }
 
         resolve();

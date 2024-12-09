@@ -2,3 +2,6 @@ screenshots
 logs
 cache
 node_modules
+env.json
+cookies.json
+schedule.json

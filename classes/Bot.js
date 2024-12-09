@@ -22,9 +22,7 @@ exports.post = async (post) => {
 
     return new Promise(async (resolve) => {
 
-        let postUrl = null;
-
-        logger.log(`POSTING : ${post.link}`);
+        logger.log(`POSTING : ${JSON.stringify(post)}`);
 
         try {
 
@@ -42,7 +40,7 @@ exports.post = async (post) => {
 
             }
 
-            postUrl = await submitPost(post);
+            post = await submitPost(post);
 
         } catch (err) {
 
@@ -54,13 +52,13 @@ exports.post = async (post) => {
 
             await browserHelper.exitBrowser(browser, page);
 
-        }catch(err){
+        } catch (err) {
 
         }
 
         resolve({
-            success: postUrl ? true : false,
-            postUrl: postUrl
+            success: post.hasOwnProperty('post_link') ? true : false,
+            post: post
         });
         return;
 
@@ -89,7 +87,7 @@ exports.test = async () => {
 
             await browserHelper.exitBrowser(browser, page);
 
-        }catch(err){
+        } catch (err) {
 
         }
 
@@ -139,11 +137,9 @@ async function submitPost(post) {
 
             let iterations = 0;
 
-            while(page.url().includes(`https://www.reddit.com/r/${post.subreddit}/submit/?type=LINK`))
-            {
+            while (page.url().includes(`https://www.reddit.com/r/${post.subreddit}/submit/?type=LINK`)) {
 
-                if(iterations++ > 60)
-                {
+                if (iterations++ > 60) {
                     logger.log("SOMETHING IS WRONG, CANNOT SUBMIT A POST. EXITING...");
                     process.exit();
                 }
@@ -153,11 +149,11 @@ async function submitPost(post) {
 
             await page.waitForNavigation(NAVIGATION_OPTIONS);
 
-            let postUrl = await page.evaluate(function () {
-                return document.querySelector('a[id*="post-title-"]').getAttribute('href');
+            post.post_link = await page.evaluate(function () {
+                return 'https://reddit.com'+document.querySelector('a[id*="post-title-"]').getAttribute('href');
             });
 
-            resolve(`https://reddit.com${postUrl}`);
+            resolve(post);
             return;
 
         } catch (err) {
