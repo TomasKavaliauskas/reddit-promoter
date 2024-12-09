@@ -5,3 +5,4 @@ node_modules
 env.json
 cookies.json
 schedule.json
+posts.json
