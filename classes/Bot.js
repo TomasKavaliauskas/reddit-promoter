@@ -54,6 +54,8 @@ exports.post = async (post) => {
 
         } catch (err) {
 
+            logger.logError(err);
+
         }
 
         resolve({
@@ -90,6 +92,8 @@ exports.test = async () => {
 
                 } catch (err) {
 
+                    logger.logError(err);
+
                 }
 
             }
@@ -107,6 +111,8 @@ exports.test = async () => {
             await browserHelper.exitBrowser(browser, page);
 
         } catch (err) {
+
+            logger.logError(err);
 
         }
 
@@ -134,6 +140,8 @@ async function openPostSubmitPage(subreddit) {
                 pageLoaded = true;
 
             } catch (err) {
+
+                logger.logError(err);
 
             }
 
@@ -231,8 +239,10 @@ async function turnOnTheBrowser() {
 }
 
 process.on('unhandledRejection', (reason, promise) => {
-    console.log(reason)
+    console.log(reason);
+    process.exit();
 });
 process.on('uncaughtException', (reason) => {
-    console.log(reason)
+    console.log(reason);
+    process.exit();
 });
