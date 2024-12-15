@@ -75,6 +75,25 @@ exports.test = async () => {
         try {
 
             await turnOnTheBrowser();
+
+            let pageLoaded = false;
+
+            while (!pageLoaded) {
+
+                try {
+
+                    await Promise.all([
+                        page.goto('https://reddit.com', NAVIGATION_OPTIONS),
+                        page.waitForNavigation(NAVIGATION_OPTIONS)
+                    ]);
+                    pageLoaded = true;
+
+                } catch (err) {
+
+                }
+
+            }
+
             await common.sleep(999);
 
         } catch (err) {
@@ -102,10 +121,23 @@ async function openPostSubmitPage(subreddit) {
 
     return new Promise(async (resolve, reject) => {
 
-        await Promise.all([
-            page.goto(`https://www.reddit.com/r/${subreddit}/submit/?type=LINK`, NAVIGATION_OPTIONS),
-            page.waitForNavigation(NAVIGATION_OPTIONS)
-        ]);
+        let pageLoaded = false;
+
+        while (!pageLoaded) {
+
+            try {
+
+                await Promise.all([
+                    page.goto(`https://www.reddit.com/r/${subreddit}/submit/?type=LINK`, NAVIGATION_OPTIONS),
+                    page.waitForNavigation(NAVIGATION_OPTIONS)
+                ]);
+                pageLoaded = true;
+
+            } catch (err) {
+
+            }
+
+        }
 
         resolve();
         return;
@@ -126,9 +158,9 @@ async function submitPost(post) {
             await page.type(SELECTORS.INPUTS.TITLE, post.title);
 
             await page.click(SELECTORS.INPUTS.LINK);
-            await page.type(SELECTORS.INPUTS.LINK, post.link);
+            await page.type(SELECTORS.INPUTS.LINK, `${post.link}?id=${common.getRandomInt(10000, 99999)}`);
 
-            await common.sleep(1);
+            await common.sleep(3);
 
             await Promise.all([
                 page.click(SELECTORS.BUTTONS.SUBMIT),
@@ -150,7 +182,7 @@ async function submitPost(post) {
             await page.waitForNavigation(NAVIGATION_OPTIONS);
 
             post.post_link = await page.evaluate(function () {
-                return 'https://reddit.com'+document.querySelector('a[id*="post-title-"]').getAttribute('href');
+                return 'https://reddit.com' + document.querySelector('a[id*="post-title-"]').getAttribute('href');
             });
 
             resolve(post);

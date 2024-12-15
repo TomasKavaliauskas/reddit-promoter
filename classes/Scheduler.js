@@ -51,7 +51,7 @@ exports.promoted = function (postArg, jobId) {
 function filterOutPostsForPromotion(posts) {
 
     return posts.filter(function (post) {
-        if (post.hasOwnProperty('post_link') && post.post_link && post.post_link.length > 0) {
+        if (post.hasOwnProperty('post_link') && post.post_link && post.post_link.length > 0 && post.post_link !== 'error') {
             if (!post.hasOwnProperty('sproutgigs_job_id') || !post.sproutgigs_job_id || post.sproutgigs_job_id.length === 0) {
                 if (post.hasOwnProperty('upvotes') && post.upvotes > 0) {
                     return true;

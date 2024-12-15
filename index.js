@@ -6,11 +6,7 @@ const logger = require('./classes/Logger.js');
 const sproutgigs = require('./classes/Sproutgigs.js');
 const env = JSON.parse(fs.readFileSync('./env.json'));
 
-let postMade = false;
-
 (async () => {
-
-    let sleepInSeconds = 60;
 
     if (env.testMode) {
         await test();
@@ -18,13 +14,7 @@ let postMade = false;
         while (true) {
             await post();
             await promote();
-            if(postMade)
-            {
-                logger.log("SLEEPING FOR 5 MINUTES");
-                sleepInSeconds = 300;
-                postMade = false;
-            }
-            await common.sleep(sleepInSeconds);
+            await common.sleep(60);
         }
     }
 
@@ -37,6 +27,9 @@ async function post() {
         let post = scheduler.getPost();
 
         if (post) {
+            let sleepInSeconds = common.getRandomInt(300, 600);
+            logger.log(`SLEEPING FOR ${sleepInSeconds} SECONDS BEFORE POSTING`);
+            await common.sleep(sleepInSeconds);
             let response = await bot.post(post);
             if (response.success) {
                 logger.log(`POSTED! POST LINK : ${response.post.post_link}`);

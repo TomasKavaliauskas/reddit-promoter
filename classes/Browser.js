@@ -16,7 +16,7 @@ exports.initiateBrowser = async () => {
         try {
 
             let BROWSER_PARAMS = {
-                executablePath: require('puppeteer').executablePath(),
+                executablePath: "/usr/bin/google-chrome-stable",
                 ignoreHTTPSErrors: true,
                 defaultViewport: null,
                 args: [
@@ -87,6 +87,7 @@ exports.exitBrowser = async (browser, page) => {
             try {
                 await page.screenshot({
                     path: `./screenshots/${new Date()}.png`,
+                    //path: `C:\\Users\\kteph\\Desktop\\promoter\\screenshots\\${new Date()}.png`,
                     fullPage: true
                 });
             } catch (err) {
