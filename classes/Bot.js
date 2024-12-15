@@ -166,7 +166,7 @@ async function submitPost(post) {
             await page.type(SELECTORS.INPUTS.TITLE, post.title);
 
             await page.click(SELECTORS.INPUTS.LINK);
-            await page.type(SELECTORS.INPUTS.LINK, `${post.link}?id=${common.getRandomInt(10000, 99999)}`);
+            await page.type(SELECTORS.INPUTS.LINK, post.link);
 
             await common.sleep(3);
 
