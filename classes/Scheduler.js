@@ -70,6 +70,9 @@ function getAvailableSubreddits() {
     let currentHour = new Date().getHours();
 
     let availableSubreddits = schedule.filter(function (item) {
+        if (!item.active) {
+            return false;
+        }
         if (!item.post_at.includes(currentHour)) {
             return false;
         }
